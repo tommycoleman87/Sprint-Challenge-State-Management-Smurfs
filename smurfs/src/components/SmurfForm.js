@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { postData } from './actions/smurfActions';
+
 
 const SmurfForm = props => {
     const [newSmurf, setNewSmurf] = useState({name: '', age: 0, height: ''})

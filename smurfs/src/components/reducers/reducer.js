@@ -5,6 +5,11 @@ import {
     DELETE_SMURF,
     FETCH_SMURF_DATA_FAILED,
     FETCH_SMURF_DATA_SUCCESS,
+    DELETE_SMURF_FAILED,
+    DELETE_SMURF_SUCCESS,
+    UPDATE_SMURF,
+    UPDATE_SMURF_FAILED,
+    UPDATE_SMURF_SUCCESS,
     POST_SMURF_DATA,
 } from '../actions'
 
@@ -44,14 +49,7 @@ export const reducer = (state = initialState, action) => {
                 isLoading: true,
                 error: '',
             }
-        case DELETE_SMURF:
-            return {
-                ...state,
-                smurfs: state.smurfs.filter(smurf => smurf.id !== action.payload.id),
-                error: '',
-                isLoading: false,
-            }
-        case POST_SMURF_DATA_SUCCESS: 
+            case POST_SMURF_DATA_SUCCESS: 
             return {
                 ...state,
                 smurfs: [...action.payload],
@@ -64,6 +62,45 @@ export const reducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload,
             }
+        case DELETE_SMURF:
+            return {
+                ...state,
+                error: '',
+                isLoading: true,
+            }
+        case DELETE_SMURF_SUCCESS: 
+            return {
+                ...state,
+                error: '',
+                isLoading: false,
+                smurfs: [...action.payload]
+            }
+        case DELETE_SMURF_FAILED: 
+            return {
+                ...state,
+                error: action.payload,
+                isLoading: false,
+            }
+        case UPDATE_SMURF: 
+            return {
+                ...state,
+                isLoading: true,
+                error: '',
+            }
+        case UPDATE_SMURF_SUCCESS: 
+            return {
+                ...state,
+                isLoading: false,
+                error: '',
+                smurfs: [...action.payload]
+            }
+        case UPDATE_SMURF_FAILED: 
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            }
+       
         default: 
         return state;
     }
