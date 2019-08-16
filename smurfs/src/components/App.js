@@ -1,16 +1,31 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+import {getData, postData } from './actions'
+import Smurf from './Smurf';
+import SmurfForm from './SmurfForm';
 import "./App.css";
-class App extends Component {
-  render() {
+const App = (props) => {
+  
     return (
       <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your state management version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+          {props.smurfs.map(smurf => {
+            return <Smurf key={smurf.id} smurf={smurf} />
+          })}
+        <SmurfForm postData={props.postData}/>
+        <button onClick={props.getData}>{props.isLoading ? 'Loading...' : 'Smurf it up'}</button>
       </div>
     );
+  
+}
+
+const mapStateToProps = state => {
+  return {
+    ...state,
+    smurfs: state.smurfs,
+    isLoading: state.isLoading,
   }
 }
 
-export default App;
+export default connect(
+  mapStateToProps, {getData, postData}
+)(App)
